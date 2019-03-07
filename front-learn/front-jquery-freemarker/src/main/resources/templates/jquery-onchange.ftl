@@ -6,7 +6,7 @@
 <body>
 <div class="container">
     <h4>Jquery下拉选联动</h4>
-    <form class="form-horizontal">
+    <form class="form-horizontal" action="commit" method="post">
         <div class="row">
             <div class="col-xs-4">
                 <div class="form-group">
@@ -52,6 +52,11 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <button class="btn-primary btn-sm" type="submit"> 提交</button>
+            </div>
+        </div>
     </form>
 </div>
 
@@ -64,60 +69,38 @@
         $("#inputMerchName").attr("disabled","disabled");
        $("#userType").change(function () {
           var userType = $("#userType").val();
-          switch(userType) {
-              case "1":
-                  $("#orgCode").val("001");
-                  $("#orgCode").attr("disabled","disabled");
-                  if(!$("#selecatMerch").is(":hidden")) {
-                      $("#selecatMerch").hide();
-                      $("#merchNo").attr("disabled","disabled");
+          if(userType == "1") {
+              $("#orgCode").val("001");
+              $("#orgCode").attr("disabled","disabled");
+              if(!$("#selecatMerch").is(":hidden")) {
+                  $("#selecatMerch").hide();
+                  $("#merchNo").attr("disabled","disabled");
+              }
+              if($("#inputMerch").is(":hidden")) {
+                  $("#inputMerch").show();
+                  if($("#inputMerchNo").attr("disabled")) {
+                      $("#inputMerchName").val("--");
+                      $("#inputMerchNo").removeAttr("disabled");
+                      $("#inputMerchName").removeAttr("disabled");
                   }
-                  if($("#inputMerch").is(":hidden")) {
-                      $("#inputMerch").show();
-                      if($("#inputMerchNo").attr("disabled")) {
-                          $("#inputMerchName").val("--");
-                          $("#inputMerchNo").removeAttr("disabled");
-                          $("#inputMerchName").removeAttr("disabled");
-                      }
+              }
+          } else {
+              $("#orgCode").val("");
+              if($("#orgCode").attr("disabled")) {
+                  $("#orgCode").removeAttr("disabled");
+              }
+              if($("#selecatMerch").is(":hidden")) {
+                  $("#selecatMerch").show();
+                  $("#merchNo").removeAttr("disabled");
+                  $("#merchNo").val("");
+              }
+              if(!$("#inputMerch").is(":hidden")) {
+                  $("#inputMerch").hide();
+                  if(!$("#inputMerchNo").attr("disabled")) {
+                      $("#inputMerchNo").attr("disabled","disabled");
+                      $("#inputMerchName").attr("disabled","disabled");
                   }
-                  break;
-              case "2":
-                  $("#orgCode").val("");
-                  if($("#orgCode").attr("disabled")) {
-                      $("#orgCode").removeAttr("disabled");
-                  }
-                  if(!$("#selecatMerch").is(":hidden")) {
-                      $("#selecatMerch").hide();
-                      $("#merchNo").attr("disabled","disabled");
-                  }
-                  if($("#inputMerch").is(":hidden")) {
-                      $("#inputMerch").show();
-                      if($("#inputMerchNo").attr("disabled")) {
-                          $("#inputMerchName").val("--");
-                          $("#inputMerchNo").removeAttr("disabled");
-                          $("#inputMerchName").removeAttr("disabled");
-                      }
-                  }
-                  break;
-              case "3":
-                  $("#orgCode").val("");
-                  if($("#orgCode").attr("disabled")) {
-                      $("#orgCode").removeAttr("disabled");
-                  }
-                  if($("#selecatMerch").is(":hidden")) {
-                      $("#selecatMerch").show();
-                      $("#merchNo").removeAttr("disabled");
-                      $("#merchNo").val("");
-                  }
-                  if(!$("#inputMerch").is(":hidden")) {
-                      $("#inputMerch").hide();
-                      if(!$("#inputMerchNo").attr("disabled")) {
-                          $("#inputMerchNo").attr("disabled","disabled");
-                          $("#inputMerchName").attr("disabled","disabled");
-                      }
-                  }
-                  break;
-
+              }
           }
        });
        $('#userType').val("1").trigger('change');
