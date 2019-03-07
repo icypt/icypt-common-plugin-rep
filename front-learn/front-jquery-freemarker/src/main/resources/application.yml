@@ -1,0 +1,6 @@
+
+spring:
+  application:
+    name: front-jquery-freemarker
+server:
+  port: 8081
