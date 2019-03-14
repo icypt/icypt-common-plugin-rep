@@ -2,6 +2,18 @@
 <html lang="en">
 <head>
 <#include "common/header.ftl">
+    <script>
+        /**
+         * 默认图片地址
+         * @param defaultUrl
+         */
+        function defaultImgLoad(defaultUrl){
+            //重写onerror防止递归调用
+            var img=event.srcElement;
+            img.src=defaultUrl;
+            img.onerror=null;
+        }
+    </script>
 </head>
 <body>
 <div class="container">
@@ -58,6 +70,8 @@
             </div>
         </div>
     </form>
+    <h4>图片是否加载成功判断</h4>
+    <img src="/1/learnStyle/img/1.png" id="imgTest" onerror="defaultImgLoad('/1/learnStyle/img/1.png')">
 </div>
 
 
